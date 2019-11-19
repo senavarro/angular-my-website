@@ -35,6 +35,9 @@
         </p>
         <p>
             <label for="image">Project's image</label>
+                <span class="image" *ngIf="project.image" style="float:none;">
+                    <img src="{{url+'get-image/'+project.image}}" style="width:100px"/>
+                </span><br>
             <input type="file" name="image" placeholder="upload image" (change)="fileChangeEvent($event)">
         </p>
 

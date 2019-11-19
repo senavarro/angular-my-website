@@ -19,6 +19,7 @@ export class EditComponent implements OnInit {
   public save_project;
   public status: string; 
   public filesToUpload: Array<File>;
+  public url: string;
 
   constructor(
     private _projectService: ProjectService,
@@ -27,7 +28,7 @@ export class EditComponent implements OnInit {
     private _router: Router
   ) { 
     this.title="Edit project";
-    
+    this.url = Global.url;
   }
   ngOnInit() {
     this._route.params.subscribe(params =>{
@@ -46,6 +47,38 @@ export class EditComponent implements OnInit {
         console.log(<any>error);
       }
     )
+  }
+
+  onSubmit(){
+    this._projectService.updateProject(this.project).subscribe(
+      response => {
+        if(response.project){
+
+          // Upload image
+          if(this.filesToUpload){
+            this._uploadService.makeFileRequest(Global.url+"upload-image/"+response.project._id, [], this.filesToUpload, 'image').then((result:any)=>{
+            
+              this.save_project=result.project; 
+              
+              this.status = "success"; 
+  
+            });
+          }else{
+            this.save_project=response.project;  
+            this.status = "success"; 
+          }
+
+        }else{
+          this.status = "failed"; 
+        }
+      },
+      error =>{
+        console.log(<any>error);
+      }
+    )
+  }
+  fileChangeEvent(fileInput: any){
+    this.filesToUpload = <Array<File>>fileInput.target.files;
   }
 
 }
