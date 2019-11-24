@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+//import { $ } from 'protractor';
+import * as $ from 'jquery';
+declare var $:any;
+
 
 @Component({
   selector: 'app-about',
@@ -16,7 +20,15 @@ export class AboutComponent implements OnInit {
     this.email = "serginavarro.ro@gmail.com";
    }
 
-  ngOnInit() {
+   ngOnInit() {
+    $("#logo").click(function(e){
+      e.preventDefault();
+      $("header").css("background", "green");
+    });
+  $('.gallery').bxSlider({
+    mode: 'fade',
+    captions: true,
+    slideWidth: 500});
   }
 
 }

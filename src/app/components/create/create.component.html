@@ -1,4 +1,4 @@
-<div class="container" *ngIf="project">
+<div class="container-create" *ngIf="project">
     <h2>{{title}}</h2>
 
     <div class="message success" *ngIf="status == 'success'">
@@ -29,7 +29,7 @@
             <input type="number" name="year" #year="ngModel" [(ngModel)]="project.year">
         </p>
         <p>
-            <label for="langs">Languages</label>
+            <label for="langs">Price</label>
             <input type="text" name="langs" #langs="ngModel" [(ngModel)]="project.langs" required>
             <span class="form_error" *ngIf="langs.touched && !langs.valid">Languages field can't be empty</span>
         </p>
